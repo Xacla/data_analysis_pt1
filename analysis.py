@@ -4,10 +4,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 data=pd.read_csv("data.csv",sep='\t')
-drop_fuctor = [[chr(ord('A')+i) + str(j) for j in range(1,11)]for i in range(0,14)]
-drop_fuctor=np.array(drop_fuctor)
-drop_fuctor=drop_fuctor.flatten()
-data=data.drop(["accuracy","country","source","gender"],axis=1)
+columns=data.columns.tolist()
+drop_fuctor = [chr(ord('A')+i) for i in range(0,15)]
+drop_index=data.columns.str.startswith(tuple(drop_fuctor))
+drop_fuctor = [columns[i] for i in range(drop_index.shape[0]) if  drop_index[i]]
+#drop_fuctor=np.array(drop_fuctor)
+#drop_fuctor=drop_fuctor.flatten()
+data=data.drop(["accuracy","country","source","gender","age","elapsed"],axis=1)
 data=data.drop(drop_fuctor,axis=1)
 
 data_np=data.values
@@ -23,7 +26,7 @@ plt.scatter(result_pca[:,0],result_pca[:,1],edgecolors="k")
 #%%
 import umap
 
-for i in range(5,100):
+for i in range(5,25):
     umap_ins=umap.UMAP(n_neighbors=i,metric='euclidean',verbose=True,random_state=0,min_dist=0.1)
     result_umap=umap_ins.fit_transform(data_np)
     save_csv_name="./neighbor_eud/csv_files/neighbor_"+str(i)+".csv"
