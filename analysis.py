@@ -29,6 +29,7 @@ for i in range(5,100):
     save_csv_name="./neighbor_exp/csv_files/neighbor_"+str(i)+".csv"
     np.savetxt(save_csv_name,result_umap,delimiter=",")
 
+    plt.close()
     plt.scatter(result_umap[:,0],result_umap[:,1],edgecolors='k')
     save_name="./neighbor_exp/image/neighbor_"+str(i)+".png"
     plt.savefig(save_name)
