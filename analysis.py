@@ -27,7 +27,7 @@ plt.show()
 import umap
 
 for i in range(25,100,25):
-    umap_ins=umap.UMAP(n_neighbors=i,metric='euclidean',verbose=True,random_state=0,min_dist=0.0)
+    umap_ins=umap.UMAP(n_neighbors=i,metric='canberra',verbose=True,random_state=0,min_dist=0.0)
     result_umap=umap_ins.fit_transform(data_np)
     save_csv_name="./only_likert_scale/csv_files/neighbor_"+str(i)+".csv"
     np.savetxt(save_csv_name,result_umap,delimiter=",")
