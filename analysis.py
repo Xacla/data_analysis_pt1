@@ -16,6 +16,11 @@ data=data.drop(["accuracy","country","source","gender","age","elapsed"],axis=1)
 data_np=data.values
 
 #%%
+from sklearn.model_selection import train_test_split
+data_np,data_noused=train_test_split(data_np, test_size=0.9, random_state=42)
+
+
+#%%
 from sklearn.decomposition import PCA
 
 pca=PCA(n_components=3)
@@ -26,7 +31,7 @@ plt.show()
 #%%
 import umap
 
-for i in range(25,100,25):
+for i in range(4,100,25):
     umap_ins=umap.UMAP(n_neighbors=i,metric='canberra',verbose=True,random_state=0,min_dist=0.0)
     result_umap=umap_ins.fit_transform(data_np)
     save_csv_name="./only_likert_scale/csv_files/neighbor_"+str(i)+".csv"
