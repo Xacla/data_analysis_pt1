@@ -26,15 +26,15 @@ plt.scatter(result_pca[:,0],result_pca[:,1],edgecolors="k")
 #%%
 import umap
 
-for i in range(5,25):
+for i in range(25,100,25):
     umap_ins=umap.UMAP(n_neighbors=i,metric='euclidean',verbose=True,random_state=0,min_dist=0.1)
     result_umap=umap_ins.fit_transform(data_np)
-    save_csv_name="./neighbor_eud/csv_files/neighbor_"+str(i)+".csv"
+    save_csv_name="./only_likert_scale/csv_files/neighbor_"+str(i)+".csv"
     np.savetxt(save_csv_name,result_umap,delimiter=",")
 
     plt.close()
     plt.scatter(result_umap[:,0],result_umap[:,1],edgecolors='k')
-    save_name="./neighbor_eud/image/neighbor_"+str(i)+".png"
+    save_name="./only_likert_scale/image/neighbor_"+str(i)+".png"
     plt.savefig(save_name)
 
 
